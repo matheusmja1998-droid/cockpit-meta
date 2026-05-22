@@ -13,3 +13,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Cadastro de contas do usuario (gerado a partir de contas.yaml.example)
+contas.yaml

@@ -1,6 +1,6 @@
 ---
 name: cockpit-meta
-description: Gerencia campanhas Meta Ads (Facebook/Instagram) via SDK oficial. Le campanhas, conjuntos, anuncios, criativos e insights. Cria, edita, pausa, duplica e deleta objetos. Busca interesses, comportamentos e geolocalizacoes para targeting. Troca url_tags em criativos existentes. Use quando o usuario mencionar meta ads, facebook ads, instagram ads, campanha, conjunto de anuncios, ad set, criativo, targeting, publico, insights, metricas de anuncio, duplicar campanha, url_tags, utm, criar campanha, pausar campanha, orcamento de campanha, audiencia, lookalike, pixel. Tambem dispara com /meta-ads-ratos setup.
+description: Gerencia campanhas Meta Ads (Facebook/Instagram) via SDK oficial. Le campanhas, conjuntos, anuncios, criativos e insights. Cria, edita, pausa, duplica e deleta objetos. Busca interesses, comportamentos e geolocalizacoes para targeting. Troca url_tags em criativos existentes. Use quando o usuario mencionar meta ads, facebook ads, instagram ads, campanha, conjunto de anuncios, ad set, criativo, targeting, publico, insights, metricas de anuncio, duplicar campanha, url_tags, utm, criar campanha, pausar campanha, orcamento de campanha, audiencia, lookalike, pixel. Tambem dispara com /cockpit-meta setup.
 ---
 
 ---
@@ -207,12 +207,12 @@ Quando o usuario pedir para configurar, rodar setup, ou for a primeira vez usand
 ### 1. Verificar dependencias
 
 ```bash
-python3 ~/.claude/skills/meta-ads-ratos/scripts/setup.py
+python3 ~/.claude/skills/cockpit-meta/scripts/setup.py
 ```
 
 ### 2. Verificar .env
 
-Checar se existe `~/.claude/skills/meta-ads-ratos/.env`. Se NAO existir, criar com o template:
+Checar se existe `~/.claude/skills/cockpit-meta/.env`. Se NAO existir, criar com o template:
 
 ```
 # Meta Ads Ratos — Configuracao
@@ -241,9 +241,10 @@ O token fica isolado dentro da skill e nao vaza pra outras sessoes do terminal.
 
 Depois que o `.env` estiver preenchido e o `setup.py` passar, o Claude DEVE proativamente guiar o cadastro de contas:
 
-1. Rodar `read.py accounts` para listar todas as contas disponiveis
-2. Perguntar ao usuario: "Qual a tua principal conta de anuncio? Me passa o nome do cliente, e eu preencho o contas.yaml pra ti."
-3. Para cada cliente, perguntar (ou buscar na API se possivel):
+1. **Se o `contas.yaml` ainda nao existir, copiar o template:** `cp contas.yaml.example contas.yaml`
+2. Rodar `read.py accounts` para listar todas as contas disponiveis
+3. Perguntar ao usuario: "Qual a tua principal conta de anuncio? Me passa o nome do cliente, e eu preencho o contas.yaml pra ti."
+4. Para cada cliente, perguntar (ou buscar na API se possivel):
    - Nome do cliente
    - Conta de anuncio (act_XXX) — pode escolher da lista
    - Page ID do Facebook
@@ -255,17 +256,17 @@ Esse fluxo conversacional e o jeito ideal de configurar — o usuario so respond
 
 ## Cadastro de clientes (contas.yaml)
 
-**Arquivo:** `~/.claude/skills/meta-ads-ratos/contas.yaml`
+**Arquivo:** `~/.claude/skills/cockpit-meta/contas.yaml`
 
 Antes de executar qualquer operacao, o Claude DEVE ler este arquivo para resolver nomes de clientes para IDs.
-Quando o usuario disser "cria campanha pra DobraLabs" ou "insights do Ronnau", consultar o contas.yaml
+Quando o usuario disser "cria campanha pra [cliente]" ou "insights do [cliente]", consultar o contas.yaml
 para obter conta_anuncio, pagina_facebook e instagram_id do cliente.
 
 Se o cliente nao estiver cadastrado, perguntar os dados e oferecer para adicionar ao arquivo.
 
 ## Como usar
 
-Todos os scripts estao em `~/.claude/skills/meta-ads-ratos/scripts/`. O padrao e:
+Todos os scripts estao em `~/.claude/skills/cockpit-meta/scripts/`. O padrao e:
 
 ```
 python3 <script>.py <subcomando> [argumentos]
@@ -398,7 +399,7 @@ O `--deep` no `duplicate-campaign` duplica tambem todos os ad sets e ads da camp
 
 ## Aprendizados (memória persistente)
 
-**Arquivo:** `aprendizados.md` (na raiz da skill, `~/.claude/skills/meta-ads-ratos/aprendizados.md`)
+**Arquivo:** `aprendizados.md` (na raiz da skill, `~/.claude/skills/cockpit-meta/aprendizados.md`)
 
 O Claude DEVE:
 
